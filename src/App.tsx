@@ -115,7 +115,7 @@ function App(props: any) {
 
     if (chains && query.network) {
       const foundChain = chains.find(
-        (chain: Chain) => chain.name === query.network
+        (chain: Chain) => chain.name === query.network,
       );
       setSelectedChain(foundChain);
     } else {
@@ -162,7 +162,7 @@ function App(props: any) {
       }
     },
     100,
-    true
+    true,
   );
 
   const isAddress = (q: string): boolean => {
@@ -213,7 +213,7 @@ function App(props: any) {
     if (isBlockNumber(q)) {
       const block = await ethRPC.eth_getBlockByNumber(
         `0x${parseInt(q, 10).toString(16)}`,
-        false
+        false,
       );
       if (block) {
         history.push(`/block/${block.hash}`);
@@ -280,7 +280,7 @@ function App(props: any) {
               <Grid item md={6} xs={12}>
                 <InputBase
                   placeholder={t(
-                    "Enter an Address, Transaction Hash or Block Number"
+                    "Enter an Address, Transaction Hash or Block Number",
                   )}
                   onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
                     if (event.keyCode === 13) {
@@ -332,7 +332,7 @@ function App(props: any) {
                     onClick={
                       () =>
                         window.open(
-                          "https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/etclabscore/ethereum-json-rpc-specification/master/openrpc.json"
+                          "https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/etclabscore/ethereum-json-rpc-specification/master/openrpc.json",
                         ) //tslint:disable-line
                     }
                   >
