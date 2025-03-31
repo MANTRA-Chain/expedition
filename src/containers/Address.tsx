@@ -21,18 +21,20 @@ interface IProps {
   history: History;
 }
 
+const blocksPerPage = 888;
+
 const Address: React.FC<IProps> = ({ match, history }) => {
   const { address, block } = match.params;
   const [erpc] = useEthRPCStore();
   const [blockNumber] = useBlockNumber(erpc);
   const [transactionCount, setTransactionCount] = React.useState<string>();
-  const [balance, setBalance] = React.useState<string>();
+  const [balance, setBalance] = React.useState<bigint>();
   const [code, setCode] = React.useState<string>();
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
-  const from = Math.max(blockNum ? blockNum : 0 - 99, 0);
-  const to = blockNum;
+  const from = blockNum;
+  const to = blockNum + blocksPerPage;
 
   React.useEffect(() => {
     if (isNaN(blockNum) || isNaN(blockNumber)) {
@@ -59,7 +61,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
       if (txCountRes) {
         erpc.eth_getBalance(address, hexBlockNumber).then((b) => {
           if (b === null) { return; }
-          setBalance(b);
+          setBalance(BigInt(b));
         });
         erpc.eth_getCode(address, hexBlockNumber).then((c) => {
           if (c === null) { return; }
@@ -85,7 +87,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
       setTransactions(sortedTxes);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to]);
+  }, [from, to, erpc]);
 
   if (transactionCount === undefined || balance === undefined || code === undefined) {
     return <CircularProgress />;
@@ -102,14 +104,14 @@ const Address: React.FC<IProps> = ({ match, history }) => {
         from={from}
         to={to}
         transactions={transactions}
-        disablePrev={blockNum >= blockNumber}
-        disableNext={blockNum === 0}
+        disablePrev={blockNum === 0}
+        disableNext={blockNum >= blockNumber}
         onPrev={() => {
-          const newQuery = blockNum + 100;
+          const newQuery = Math.max(blockNum - blocksPerPage, 0);
           history.push(`/address/${address}/${newQuery}`);
         }}
         onNext={() => {
-          const newQuery = Math.max(blockNum - 100, 0);
+          const newQuery = blockNum + blocksPerPage;
           history.push(`/address/${address}/${newQuery}`);
         }}
       />
