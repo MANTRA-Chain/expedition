@@ -28,12 +28,11 @@ const Address: React.FC<IProps> = ({ match, history }) => {
   const [erpc] = useEthRPCStore();
   const [blockNumber] = useBlockNumber(erpc);
   const [transactionCount, setTransactionCount] = React.useState<string>();
-  const [balance, setBalance] = React.useState<string>();
+  const [balance, setBalance] = React.useState<bigint>();
   const [code, setCode] = React.useState<string>();
   const blockNum = block === undefined ? blockNumber : parseInt(block, 10);
   const [transactions, setTransactions] = React.useState<Transaction[]>([]);
 
-  console.log({blockNum});
   const from = blockNum;
   const to = blockNum + blocksPerPage;
 
@@ -62,7 +61,7 @@ const Address: React.FC<IProps> = ({ match, history }) => {
       if (txCountRes) {
         erpc.eth_getBalance(address, hexBlockNumber).then((b) => {
           if (b === null) { return; }
-          setBalance(b);
+          setBalance(BigInt(b));
         });
         erpc.eth_getCode(address, hexBlockNumber).then((c) => {
           if (c === null) { return; }
@@ -113,7 +112,6 @@ const Address: React.FC<IProps> = ({ match, history }) => {
         }}
         onNext={() => {
           const newQuery = blockNum + blocksPerPage;
-          console.log({newQuery});
           history.push(`/address/${address}/${newQuery}`);
         }}
       />
