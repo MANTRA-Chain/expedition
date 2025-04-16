@@ -22,7 +22,7 @@ export default function() {
         rpc: ["https://evm.archive.omstead.io"],
       },
     ];
-  } else if (hostname.includes(".omstead.io")) {
+  } else {
     chainList = [
       {
         name: "OMSTEAD Testnet",
