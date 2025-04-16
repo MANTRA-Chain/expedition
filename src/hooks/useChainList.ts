@@ -12,13 +12,13 @@ export default function() {
   ) {
     chainList = [
       {
-        name: "MANTRA EVM Canary",
-        network: "canary",
+        name: "MANTRA EVM Canary (Archive)",
+        network: "canary (Archive Node)",
         rpc: ["https://evm.archive.evm-canary.mantrachain.dev"],
       },
       {
         name: "OMSTEAD Testnet",
-        network: "testnet",
+        network: "testnet (Archive Node)",
         rpc: ["https://evm.archive.omstead.io"],
       },
     ];
