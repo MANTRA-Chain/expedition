@@ -5,7 +5,11 @@ export default function() {
   // Check host name
   const hostname = window.location.hostname;
   let chainList: Chain[] = [];
-  if (hostname.includes("localhost") || hostname.includes(".mantrachain.dev")) {
+  if (
+    hostname.includes("localhost")
+    || hostname.includes(".mantrachain.dev")
+    || hostname.includes(".pages.dev")
+  ) {
     chainList = [
       {
         name: "MANTRA EVM Canary",
