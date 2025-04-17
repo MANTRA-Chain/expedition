@@ -6,7 +6,7 @@ export interface INativeCurrency {
 
 export interface IChain {
   name: string;
-  chainId?: number;
+  chainId?: string;
   shortName?: string;
   chain?: string;
   network: string;
@@ -17,5 +17,7 @@ export interface IChain {
   infoURL?: string[];
   url?: string;
   summary?: string;
+  blockExplorerUrls?: string[];
+  iconUrls?: string[];
   [k: string]: any;
 }
