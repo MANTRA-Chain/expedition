@@ -53,7 +53,7 @@ import useChainListStore from "./stores/useChainListStore";
 import useEthRPCStore from "./stores/useEthRPCStore";
 import AddChain from "./components/AddChain/AddChain";
 import { NetworkWifi } from "@material-ui/icons";
-import AddToMetaMask from "./components/AddToMetaMask";
+import AddChainToWallet from "./components/AddChainToWallet";
 
 const history = createPreserveQueryHistory(createBrowserHistory, [
   "network",
@@ -305,7 +305,7 @@ function App(props: any) {
               </Grid>
               <Grid item>
                 {selectedChain ? (
-                  <AddToMetaMask selected={selectedChain}/>
+                  <AddChainToWallet selected={selectedChain}/>
                 ) : (<></>)
                 }
                 {selectedChain ? (

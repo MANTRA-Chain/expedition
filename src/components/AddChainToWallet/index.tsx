@@ -6,11 +6,11 @@ interface IProps {
   selected: Chain;
 }
 
-const AddToMetaMask: React.FC<IProps> = ({selected}: IProps) => {
+const AddChainToWallet: React.FC<IProps> = ({selected}: IProps) => {
   const handleAdd = () => {
     // @ts-ignore
     if (typeof window.ethereum === "undefined") {
-      alert("MetaMask is installed!");
+      alert("Wallet is not installed!");
       return;
     }
     // @ts-ignore
@@ -29,10 +29,10 @@ const AddToMetaMask: React.FC<IProps> = ({selected}: IProps) => {
   return (
     <>
       <Button onClick={handleAdd} color="primary">
-        Add to MetaMask
+        Add chain to wallet
       </Button>
     </>
   );
 };
 
-export default AddToMetaMask;
+export default AddChainToWallet;
